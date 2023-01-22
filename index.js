@@ -62,10 +62,17 @@ class Pawn extends Piece {
     constructor(file, rank, color, number) {
         super("" + color + "-pawn-" + number, file, rank, color);
     }
+
     canMove(file, rank) {
-        if ((getPiece(file, rank).color == (this.color == "white" ? "black" : "white"))
-            && (file == this.file + 1 || file == this.file - 1)
-            && (rank == this.file + 1 || rank == this.file - 1)) { return true; }
+        let capturable = getPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+
+        if (capturableColor == this.color) { return false; }
+
+        //console.log((this.color == "white" ? "black" : "white"));
+        if ((capturableColor == ((this.color == "white") ? "black" : "white"))
+            && Math.abs(file - this.file) == 1
+            && Math.abs(rank - this.rank) == 1) { return true; }
 
         if (!getPiece(file, rank)
             && (file == this.file)
@@ -228,9 +235,9 @@ const pawnPositions = [[0, 0],
 [7, 1], [8, 1], [9, 1],
 [10, 0]];
 const bishopPositions = [[3, 0], [4, 0], [6, 0], [7, 0]];
-const rookPositions = [[1, 2], [9, 0]];
-const kingPositions = [[7, 2]];
-const queenPositions = [[5, 4]];
+const rookPositions = [[1, 0], [9, 0]];
+const kingPositions = [[5, 0]];
+const queenPositions = [[5, 1]];
 const knightPositions = [[4, 1], [6, 1]];
 
 function setPieces(type, positions) {
@@ -308,20 +315,31 @@ document.body.onmousedown = function(event) {
         if (curDragElem.id == "checker-board") {
             console.log("CHESSBOARD");
             console.log(" ");
+            curDragElem = null;
+            return;
+        }
+        if (curDragElem.id == "ball") {
+            console.log("dont touch my balls");
+            console.log(" ");
+            curDragElem = null;
             return;
         }
         if (!curDragElem.id.includes("black") && !curDragElem.id.includes("white")) {
             console.log("not a piece");
             console.log(" ");
+            curDragElem = null;
             return;
         }
         let divi = document.getElementById(curDragElem.id);
-        let ofr = TLPxlToPoint(Number(divi.style.left.replace("px",""))+25, Number(divi.style.top.replace("px",""))+25);
+        divi.style.zIndex = 69420;
+
+        let ofr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25, Number(divi.style.top.replace("px", "")) + 25);
         ofile = ofr[0];
         orank = ofr[1];
-        console.log("" + ofile + ", " + orank);
-        console.log(getPiece(ofile,orank))
         curDragPiece = getPiece(ofile, orank)
+
+        console.log("" + ofile + ", " + orank);
+        console.log(getPiece(ofile, orank))
         console.log(" ");
     }
 
@@ -332,24 +350,49 @@ document.body.onmouseup = function(event) {
         --mouseDown;
         // console.log(mouseDown);
         // console.log(event.target.id);
-        
+        if (!curDragElem) { return; }
+
         let divi = document.getElementById(curDragElem.id);
-        let ffr = TLPxlToPoint(Number(divi.style.left.replace("px",""))+25, Number(divi.style.top.replace("px",""))+25);
-        if (!curDragPiece.getMoves().includes(ffr)) {
-            let pxl = pointToTLPxl(ofile, orank);
+
+        let ffr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25, Number(divi.style.top.replace("px", "")) + 25);
+
+        if (!curDragPiece.getMoves().find((c) => c[0] == ffr[0] && c[1] == ffr[1])) {
+            let pxl = pointToTLPxl(ofile, 14 - orank);
             divi.style.left = pxl[0]
             divi.style.top = pxl[1]
-        } 
-        getPiece()
+            divi.style.zIndex = 1;
+
+            return;
+        }
+
+        let capturable = getPiece(ffr[0], ffr[1])
+        if (capturable) {
+            // pieces.forEach((x) => {if (x.name == capturable.name) {dele}})
+            for (let i = pieces.length - 1; i >= 0; i--) {
+                if (pieces[i].name == capturable.name) {
+                    // delete pieces[i];
+                    pieces.splice(i, 1);
+                    break;
+                }
+            }
+            document.getElementById(capturable.name).remove();
+        }
+
+        curDragPiece.file = ffr[0];
+        curDragPiece.rank = ffr[1];
+        let pxl = pointToTLPxl(ffr[0], 14 - ffr[1]);
+        divi.style.left = pxl[0]
+        divi.style.top = pxl[1]
     }
 }
 
 document.body.onmousemove = function(event) {
     if (mouseDown == 1) {
-        let divi = document.getElementById(curDragElem.id);
-        
-        
-        divi.style.top = event.pageY - 40;
-        divi.style.left = event.pageX - 40;
+        if (curDragElem) {
+            let divi = document.getElementById(curDragElem.id);
+            let board = document.getElementById("checker-board").getBoundingClientRect();
+            divi.style.top = event.pageY - 40 - board.top;
+            divi.style.left = event.pageX - 35 - board.left;
+        }
     }
 }

@@ -1,270 +1,278 @@
-
 <html>
 
-	<head>
-		<title> CHESSOCCER </title>
-		<link href="styles.css" rel="stylesheet"/>
-		<script defer src="index.js"></script>
-	</head>
-	
-	<body style="user-select: none;" id="body">
-		<div id="checker-board">
-			<div id="0014" class="dark square"></div>
-			<div id="0114" class="light square"></div>
-			<div id="0214" class="dark square"></div>
-			<div id="0314" class="light square"></div>
-			<div id="0414" class="dark square"></div>
-			<div id="0514" class="light square"></div>
-			<div id="0614" class="dark square"></div>
-			<div id="0714" class="light square"></div>
-			<div id="0814" class="dark square"></div>
-			<div id="0914" class="light square"></div>
-			<div id="1014" class="dark square"></div>
-			<div id="0013" class="light square"></div>
-			<div id="0113" class="dark square"></div>
-			<div id="0213" class="light square"></div>
-			<div id="0313" class="dark square"></div>
-			<div id="0413" class="light square"></div>
-			<div id="0513" class="dark square"></div>
-			<div id="0613" class="light square"></div>
-			<div id="0713" class="dark square"></div>
-			<div id="0813" class="light square"></div>
-			<div id="0913" class="dark square"></div>
-			<div id="1013" class="light square"></div>
-			<div id="0012" class="dark square"></div>
-			<div id="0112" class="light square"></div>
-			<div id="0212" class="dark square"></div>
-			<div id="0312" class="light square"></div>
-			<div id="0412" class="dark square"></div>
-			<div id="0512" class="light square"></div>
-			<div id="0612" class="dark square"></div>
-			<div id="0712" class="light square"></div>
-			<div id="0812" class="dark square"></div>
-			<div id="0912" class="light square"></div>
-			<div id="1012" class="dark square"></div>
-			<div id="0011" class="light square"></div>
-			<div id="0111" class="dark square"></div>
-			<div id="0211" class="light square"></div>
-			<div id="0311" class="dark square"></div>
-			<div id="0411" class="light square"></div>
-			<div id="0511" class="dark square"></div>
-			<div id="0611" class="light square"></div>
-			<div id="0711" class="dark square"></div>
-			<div id="0811" class="light square"></div>
-			<div id="0911" class="dark square"></div>
-			<div id="1011" class="light square"></div>
-			<div id="0010" class="dark square"></div>
-			<div id="0110" class="light square"></div>
-			<div id="0210" class="dark square"></div>
-			<div id="0310" class="light square"></div>
-			<div id="0410" class="dark square"></div>
-			<div id="0510" class="light square"></div>
-			<div id="0610" class="dark square"></div>
-			<div id="0710" class="light square"></div>
-			<div id="0810" class="dark square"></div>
-			<div id="0910" class="light square"></div>
-			<div id="1010" class="dark square"></div>
-			<div id="0009" class="light square"></div>
-			<div id="0109" class="dark square"></div>
-			<div id="0209" class="light square"></div>
-			<div id="0309" class="dark square"></div>
-			<div id="0409" class="light square"></div>
-			<div id="0509" class="dark square"></div>
-			<div id="0609" class="light square"></div>
-			<div id="0709" class="dark square"></div>
-			<div id="0809" class="light square"></div>
-			<div id="0909" class="dark square"></div>
-			<div id="1009" class="light square"></div>
-			<div id="0008" class="dark square"></div>
-			<div id="0108" class="light square"></div>
-			<div id="0208" class="dark square"></div>
-			<div id="0308" class="light square"></div>
-			<div id="0408" class="dark square"></div>
-			<div id="0508" class="light square"></div>
-			<div id="0608" class="dark square"></div>
-			<div id="0708" class="light square"></div>
-			<div id="0808" class="dark square"></div>
-			<div id="0908" class="light square"></div>
-			<div id="1008" class="dark square"></div>
-			<div id="0007" class="light square"></div>
-			<div id="0107" class="dark square"></div>
-			<div id="0207" class="light square"></div>
-			<div id="0307" class="dark square"></div>
-			<div id="0407" class="light square"></div>
-			<div id="0507" class="gold square"></div>
-			<div id="0607" class="light square"></div>
-			<div id="0707" class="dark square"></div>
-			<div id="0807" class="light square"></div>
-			<div id="0907" class="dark square"></div>
-			<div id="1007" class="light square"></div>
-			<div id="0006" class="dark square"></div>
-			<div id="0106" class="light square"></div>
-			<div id="0206" class="dark square"></div>
-			<div id="0306" class="light square"></div>
-			<div id="0406" class="dark square"></div>
-			<div id="0506" class="light square"></div>
-			<div id="0606" class="dark square"></div>
-			<div id="0706" class="light square"></div>
-			<div id="0806" class="dark square"></div>
-			<div id="0906" class="light square"></div>
-			<div id="1006" class="dark square"></div>
-			<div id="0005" class="light square"></div>
-			<div id="0105" class="dark square"></div>
-			<div id="0205" class="light square"></div>
-			<div id="0305" class="dark square"></div>
-			<div id="0405" class="light square"></div>
-			<div id="0505" class="dark square"></div>
-			<div id="0605" class="light square"></div>
-			<div id="0705" class="dark square"></div>
-			<div id="0805" class="light square"></div>
-			<div id="0905" class="dark square"></div>
-			<div id="1005" class="light square"></div>
-			<div id="0004" class="dark square"></div>
-			<div id="0104" class="light square"></div>
-			<div id="0204" class="dark square"></div>
-			<div id="0304" class="light square"></div>
-			<div id="0404" class="dark square"></div>
-			<div id="0504" class="light square"></div>
-			<div id="0604" class="dark square"></div>
-			<div id="0704" class="light square"></div>
-			<div id="0804" class="dark square"></div>
-			<div id="0904" class="light square"></div>
-			<div id="1004" class="dark square"></div>
-			<div id="0003" class="light square"></div>
-			<div id="0103" class="dark square"></div>
-			<div id="0203" class="light square"></div>
-			<div id="0303" class="dark square"></div>
-			<div id="0403" class="light square"></div>
-			<div id="0503" class="dark square"></div>
-			<div id="0603" class="light square"></div>
-			<div id="0703" class="dark square"></div>
-			<div id="0803" class="light square"></div>
-			<div id="0903" class="dark square"></div>
-			<div id="1003" class="light square"></div>
-			<div id="0002" class="dark square"></div>
-			<div id="0102" class="light square"></div>
-			<div id="0202" class="dark square"></div>
-			<div id="0302" class="light square"></div>
-			<div id="0402" class="dark square"></div>
-			<div id="0502" class="light square"></div>
-			<div id="0602" class="dark square"></div>
-			<div id="0702" class="light square"></div>
-			<div id="0802" class="dark square"></div>
-			<div id="0902" class="light square"></div>
-			<div id="1002" class="dark square"></div>
-			<div id="0001" class="light square"></div>
-			<div id="0101" class="dark square"></div>
-			<div id="0201" class="light square"></div>
-			<div id="0301" class="dark square"></div>
-			<div id="0401" class="light square"></div>
-			<div id="0501" class="dark square"></div>
-			<div id="0601" class="light square"></div>
-			<div id="0701" class="dark square"></div>
-			<div id="0801" class="light square"></div>
-			<div id="0901" class="dark square"></div>
-			<div id="1001" class="light square"></div>
-			<div id="0000" class="dark square"></div>
-			<div id="0100" class="light square"></div>
-			<div id="0200" class="dark square"></div>
-			<div id="0300" class="light square"></div>
-			<div id="0400" class="dark square"></div>
-			<div id="0500" class="light square"></div>
-			<div id="0600" class="dark square"></div>
-			<div id="0700" class="light square"></div>
-			<div id="0800" class="dark square"></div>
-			<div id="0900" class="light square"></div>
-			<div id="1000" class="dark square"></div>
-	
-			<div class="piece" id="white-pawn-1"><img draggable="false" id="white-pawn-1" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-2"><img draggable="false" id="white-pawn-2" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-3"><img draggable="false" id="white-pawn-3" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-4"><img draggable="false" id="white-pawn-4" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-5"><img draggable="false" id="white-pawn-5" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-6"><img draggable="false" id="white-pawn-6" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-7"><img draggable="false" id="white-pawn-7" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-8"><img draggable="false" id="white-pawn-8" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-9"><img draggable="false" id="white-pawn-9" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-10"><img draggable="false" id="white-pawn-10" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-pawn-11"><img draggable="false" id="white-pawn-11" src="assets/Chess_plt45.svg.png"
-					width="50px" height="50px"></div>
-	
-			<div class="piece" id="black-pawn-1"><img draggable="false" id="black-pawn-1" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-2"><img draggable="false" id="black-pawn-2" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-3"><img draggable="false" id="black-pawn-3" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-4"><img draggable="false" id="black-pawn-4" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-5"><img draggable="false" id="black-pawn-5" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-6"><img draggable="false" id="black-pawn-6" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-7"><img draggable="false" id="black-pawn-7" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-8"><img draggable="false" id="black-pawn-8" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-9"><img draggable="false" id="black-pawn-9" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-10"><img draggable="false" id="black-pawn-10" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-pawn-11"><img draggable="false" id="black-pawn-11" src="assets/Chess_pdt45.svg.png"
-					width="50px" height="50px"></div>
-	
-			<div class="piece" id="white-bishop-1"><img draggable="false" id="white-bishop-1"
-					src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="white-bishop-2"><img draggable="false" id="white-bishop-2"
-					src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="white-bishop-3"><img draggable="false" id="white-bishop-3"
-					src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="white-bishop-4"><img draggable="false" id="white-bishop-4"
-					src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="white-king-1"><img draggable="false" id="white-king-1" src="assets/Chess_klt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-rook-1"><img draggable="false" id="white-rook-1" src="assets/Chess_rlt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-rook-2"><img draggable="false" id="white-rook-2" src="assets/Chess_rlt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-queen-1"><img draggable="false" id="white-queen-1" src="assets/Chess_qlt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="white-knight-1"><img draggable="false" id="white-knight-1"
-					src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="white-knight-2"><img draggable="false" id="white-knight-2"
-					src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
-	
-			<div class="piece" id="black-bishop-1"><img draggable="false" id="black-bishop-1"
-					src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="black-bishop-2"><img draggable="false" id="black-bishop-2"
-					src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="black-bishop-3"><img draggable="false" id="black-bishop-3"
-					src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="black-bishop-4"><img draggable="false" id="black-bishop-4"
-					src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="black-king-1"><img draggable="false" id="black-king-1" src="assets/Chess_kdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-rook-1"><img draggable="false" id="black-rook-1" src="assets/Chess_rdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-rook-2"><img draggable="false" id="black-rook-2" src="assets/Chess_rdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-queen-1"><img draggable="false" id="black-queen-1" src="assets/Chess_qdt45.svg.png"
-					width="50px" height="50px"></div>
-			<div class="piece" id="black-knight-1"><img draggable="false" id="black-knight-1"
-					src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="black-knight-2"><img draggable="false" id="black-knight-2"
-					src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
-			<div class="piece" id="ball"><img draggable="false" id="ball" src="assets/ball.png" width="50px" height="50px">
-			</div>
-		</div>
-	</body>
-	
-	</html>
+<head>
+    <title> CHESSOCCER </title>
+    <link href="styles.css" rel="stylesheet" />
+    <script defer src="index.js"></script>
+</head>
+
+<body style="user-select: none; background-color: #111111;" id="body">
+    <center>
+        <h1 style="color: white;">
+            <marquee> CHESSOCCER, DEVELOPED BY ESHAN, ALAN, TIMON - Gunnhacks 9.0 - TEAM EAT FTW !! </marquee>
+        </h1>
+    </center>
+
+    <center>
+        <div id="checker-board">
+            <div id="0014" class="dark square"></div>
+            <div id="0114" class="light square"></div>
+            <div id="0214" class="dark square"></div>
+            <div id="0314" class="light square"></div>
+            <div id="0414" class="dark square"></div>
+            <div id="0514" class="light square"></div>
+            <div id="0614" class="dark square"></div>
+            <div id="0714" class="light square"></div>
+            <div id="0814" class="dark square"></div>
+            <div id="0914" class="light square"></div>
+            <div id="1014" class="dark square"></div>
+            <div id="0013" class="light square"></div>
+            <div id="0113" class="dark square"></div>
+            <div id="0213" class="light square"></div>
+            <div id="0313" class="dark square"></div>
+            <div id="0413" class="light square"></div>
+            <div id="0513" class="dark square"></div>
+            <div id="0613" class="light square"></div>
+            <div id="0713" class="dark square"></div>
+            <div id="0813" class="light square"></div>
+            <div id="0913" class="dark square"></div>
+            <div id="1013" class="light square"></div>
+            <div id="0012" class="dark square"></div>
+            <div id="0112" class="light square"></div>
+            <div id="0212" class="dark square"></div>
+            <div id="0312" class="light square"></div>
+            <div id="0412" class="dark square"></div>
+            <div id="0512" class="light square"></div>
+            <div id="0612" class="dark square"></div>
+            <div id="0712" class="light square"></div>
+            <div id="0812" class="dark square"></div>
+            <div id="0912" class="light square"></div>
+            <div id="1012" class="dark square"></div>
+            <div id="0011" class="light square"></div>
+            <div id="0111" class="dark square"></div>
+            <div id="0211" class="light square"></div>
+            <div id="0311" class="dark square"></div>
+            <div id="0411" class="light square"></div>
+            <div id="0511" class="dark square"></div>
+            <div id="0611" class="light square"></div>
+            <div id="0711" class="dark square"></div>
+            <div id="0811" class="light square"></div>
+            <div id="0911" class="dark square"></div>
+            <div id="1011" class="light square"></div>
+            <div id="0010" class="dark square"></div>
+            <div id="0110" class="light square"></div>
+            <div id="0210" class="dark square"></div>
+            <div id="0310" class="light square"></div>
+            <div id="0410" class="dark square"></div>
+            <div id="0510" class="light square"></div>
+            <div id="0610" class="dark square"></div>
+            <div id="0710" class="light square"></div>
+            <div id="0810" class="dark square"></div>
+            <div id="0910" class="light square"></div>
+            <div id="1010" class="dark square"></div>
+            <div id="0009" class="light square"></div>
+            <div id="0109" class="dark square"></div>
+            <div id="0209" class="light square"></div>
+            <div id="0309" class="dark square"></div>
+            <div id="0409" class="light square"></div>
+            <div id="0509" class="dark square"></div>
+            <div id="0609" class="light square"></div>
+            <div id="0709" class="dark square"></div>
+            <div id="0809" class="light square"></div>
+            <div id="0909" class="dark square"></div>
+            <div id="1009" class="light square"></div>
+            <div id="0008" class="dark square"></div>
+            <div id="0108" class="light square"></div>
+            <div id="0208" class="dark square"></div>
+            <div id="0308" class="light square"></div>
+            <div id="0408" class="dark square"></div>
+            <div id="0508" class="light square"></div>
+            <div id="0608" class="dark square"></div>
+            <div id="0708" class="light square"></div>
+            <div id="0808" class="dark square"></div>
+            <div id="0908" class="light square"></div>
+            <div id="1008" class="dark square"></div>
+            <div id="0007" class="light square"></div>
+            <div id="0107" class="dark square"></div>
+            <div id="0207" class="light square"></div>
+            <div id="0307" class="dark square"></div>
+            <div id="0407" class="light square"></div>
+            <div id="0507" class="gold square"></div>
+            <div id="0607" class="light square"></div>
+            <div id="0707" class="dark square"></div>
+            <div id="0807" class="light square"></div>
+            <div id="0907" class="dark square"></div>
+            <div id="1007" class="light square"></div>
+            <div id="0006" class="dark square"></div>
+            <div id="0106" class="light square"></div>
+            <div id="0206" class="dark square"></div>
+            <div id="0306" class="light square"></div>
+            <div id="0406" class="dark square"></div>
+            <div id="0506" class="light square"></div>
+            <div id="0606" class="dark square"></div>
+            <div id="0706" class="light square"></div>
+            <div id="0806" class="dark square"></div>
+            <div id="0906" class="light square"></div>
+            <div id="1006" class="dark square"></div>
+            <div id="0005" class="light square"></div>
+            <div id="0105" class="dark square"></div>
+            <div id="0205" class="light square"></div>
+            <div id="0305" class="dark square"></div>
+            <div id="0405" class="light square"></div>
+            <div id="0505" class="dark square"></div>
+            <div id="0605" class="light square"></div>
+            <div id="0705" class="dark square"></div>
+            <div id="0805" class="light square"></div>
+            <div id="0905" class="dark square"></div>
+            <div id="1005" class="light square"></div>
+            <div id="0004" class="dark square"></div>
+            <div id="0104" class="light square"></div>
+            <div id="0204" class="dark square"></div>
+            <div id="0304" class="light square"></div>
+            <div id="0404" class="dark square"></div>
+            <div id="0504" class="light square"></div>
+            <div id="0604" class="dark square"></div>
+            <div id="0704" class="light square"></div>
+            <div id="0804" class="dark square"></div>
+            <div id="0904" class="light square"></div>
+            <div id="1004" class="dark square"></div>
+            <div id="0003" class="light square"></div>
+            <div id="0103" class="dark square"></div>
+            <div id="0203" class="light square"></div>
+            <div id="0303" class="dark square"></div>
+            <div id="0403" class="light square"></div>
+            <div id="0503" class="dark square"></div>
+            <div id="0603" class="light square"></div>
+            <div id="0703" class="dark square"></div>
+            <div id="0803" class="light square"></div>
+            <div id="0903" class="dark square"></div>
+            <div id="1003" class="light square"></div>
+            <div id="0002" class="dark square"></div>
+            <div id="0102" class="light square"></div>
+            <div id="0202" class="dark square"></div>
+            <div id="0302" class="light square"></div>
+            <div id="0402" class="dark square"></div>
+            <div id="0502" class="light square"></div>
+            <div id="0602" class="dark square"></div>
+            <div id="0702" class="light square"></div>
+            <div id="0802" class="dark square"></div>
+            <div id="0902" class="light square"></div>
+            <div id="1002" class="dark square"></div>
+            <div id="0001" class="light square"></div>
+            <div id="0101" class="dark square"></div>
+            <div id="0201" class="light square"></div>
+            <div id="0301" class="dark square"></div>
+            <div id="0401" class="light square"></div>
+            <div id="0501" class="dark square"></div>
+            <div id="0601" class="light square"></div>
+            <div id="0701" class="dark square"></div>
+            <div id="0801" class="light square"></div>
+            <div id="0901" class="dark square"></div>
+            <div id="1001" class="light square"></div>
+            <div id="0000" class="dark square"></div>
+            <div id="0100" class="light square"></div>
+            <div id="0200" class="dark square"></div>
+            <div id="0300" class="light square"></div>
+            <div id="0400" class="dark square"></div>
+            <div id="0500" class="light square"></div>
+            <div id="0600" class="dark square"></div>
+            <div id="0700" class="light square"></div>
+            <div id="0800" class="dark square"></div>
+            <div id="0900" class="light square"></div>
+            <div id="1000" class="dark square"></div>
+
+            <div class="piece" id="white-pawn-1"><img draggable="false" id="white-pawn-1"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-2"><img draggable="false" id="white-pawn-2"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-3"><img draggable="false" id="white-pawn-3"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-4"><img draggable="false" id="white-pawn-4"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-5"><img draggable="false" id="white-pawn-5"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-6"><img draggable="false" id="white-pawn-6"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-7"><img draggable="false" id="white-pawn-7"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-8"><img draggable="false" id="white-pawn-8"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-9"><img draggable="false" id="white-pawn-9"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-10"><img draggable="false" id="white-pawn-10"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-pawn-11"><img draggable="false" id="white-pawn-11"
+                    src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+
+            <div class="piece" id="black-pawn-1"><img draggable="false" id="black-pawn-1"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-2"><img draggable="false" id="black-pawn-2"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-3"><img draggable="false" id="black-pawn-3"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-4"><img draggable="false" id="black-pawn-4"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-5"><img draggable="false" id="black-pawn-5"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-6"><img draggable="false" id="black-pawn-6"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-7"><img draggable="false" id="black-pawn-7"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-8"><img draggable="false" id="black-pawn-8"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-9"><img draggable="false" id="black-pawn-9"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-10"><img draggable="false" id="black-pawn-10"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-pawn-11"><img draggable="false" id="black-pawn-11"
+                    src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+
+            <div class="piece" id="white-bishop-1"><img draggable="false" id="white-bishop-1"
+                    src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-bishop-2"><img draggable="false" id="white-bishop-2"
+                    src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-bishop-3"><img draggable="false" id="white-bishop-3"
+                    src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-bishop-4"><img draggable="false" id="white-bishop-4"
+                    src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-king-1"><img draggable="false" id="white-king-1"
+                    src="assets/Chess_klt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-rook-1"><img draggable="false" id="white-rook-1"
+                    src="assets/Chess_rlt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-rook-2"><img draggable="false" id="white-rook-2"
+                    src="assets/Chess_rlt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-queen-1"><img draggable="false" id="white-queen-1"
+                    src="assets/Chess_qlt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-knight-1"><img draggable="false" id="white-knight-1"
+                    src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="white-knight-2"><img draggable="false" id="white-knight-2"
+                    src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
+
+            <div class="piece" id="black-bishop-1"><img draggable="false" id="black-bishop-1"
+                    src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-bishop-2"><img draggable="false" id="black-bishop-2"
+                    src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-bishop-3"><img draggable="false" id="black-bishop-3"
+                    src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-bishop-4"><img draggable="false" id="black-bishop-4"
+                    src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-king-1"><img draggable="false" id="black-king-1"
+                    src="assets/Chess_kdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-rook-1"><img draggable="false" id="black-rook-1"
+                    src="assets/Chess_rdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-rook-2"><img draggable="false" id="black-rook-2"
+                    src="assets/Chess_rdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-queen-1"><img draggable="false" id="black-queen-1"
+                    src="assets/Chess_qdt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-knight-1"><img draggable="false" id="black-knight-1"
+                    src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="black-knight-2"><img draggable="false" id="black-knight-2"
+                    src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
+            <div class="piece" id="ball"><img draggable="false" id="ball" src="assets/ballin.gif" width="50px"
+                    height="50px">
+            </div>
+        </div>
+    </center>
+</body>
+
+</html>
