@@ -32,19 +32,37 @@ class Piece {
     }
 }
 
-// class Ball {
-//     //TODO!
-// }
+
+class Ball {
+    //File: |
+    // Rank: -
+    constructor(file, rank) {
+        this.file = file;
+        this.rank = rank;
+    }
+}
 
 class Pawn extends Piece {
     constructor(file, rank, color, number) {
-        super("" + color + "-pawn-" + number, file, rank, color)
+        super("" + color + "-pawn-" + number, file, rank, color);
     }
     canMove(file, rank) {
+        // if ((isPiece(file, rank).color == (this.color == "white" ? "black" : "white") )
+        //     && (file == this.file + 1 || file == this.file - 1)
+        //     && (rank == this.file + 1 || rank == this.file -1) { return true; }
+
+        // if (!i)
+    }
+}
+
+class Knight extends Piece {
+    constructor(file, rank, color, number) {
+        super("" + color + "-knight-" + number, file, rank, color)
+    }
+    canMove(file, rank) {
+        if (Math.abs(file - this.file) == 1 && Math.abs(rank-this.rank) == 2) { return true; }
+        if (Math.abs(file - this.file) == 2 && Math.abs(rank-this.rank) == 1) { }
         //TODO!
-        console.log(this.file);
-        console.log(this.rank);
-        console.log("" + file + ", " + rank)
     }
 }
 
@@ -104,33 +122,66 @@ const pawnPositions = [[0, 0],
 [10, 0]];
 const bishopPositions = [[3, 0], [4, 0], [6, 0], [7, 0]];
 const rookPositions = [[1, 0], [9, 0]];
-const kingPositions = [[0, 5]];
-const queenPositions = [[1, 5]];
+const kingPositions = [[5, 0]];
+const queenPositions = [[5, 1]];
+const knightPositions = [[4, 1], [6, 1]];
 
 function setPieces(type, positions) {
-    var out = [];
-    for (var i = 1; i <= positions.length; i++) {
-        out.push(new type(positions[i - 1][0], positions[i - 1][1], 'white', i));
-        out.push(new type(positions[i - 1][0], 14 - positions[i - 1][1], 'black', i));
+    let out = [];
+    for (let i = 1; i <= positions.length; i++) {
+        out.push(new type(positions[i - 1][0], 14 - positions[i - 1][1], 'white', i));
+        out.push(new type(positions[i - 1][0], positions[i - 1][1], 'black', i));
     }
     return out;
 }
 
 function drawPieces(pieces) {
-    for (var i = 0; i <= pieces.length; i++) {
-        console.log(pieces[i].name);
-        var piece = document.getElementById(pieces[i].name);
-        var pos = pointTToTLPxl([pieces[i].file, pieces[i].rank]);
+    for (let i = 0; i < pieces.length; i++) {
+        console.log(pieces[i]);
+        let piece = document.getElementById(pieces[i].name);
+        let pos = pointTToTLPxl([pieces[i].file, pieces[i].rank]);
         piece.style.top = pos[1];
         piece.style.left = pos[0];
     }
 }
 
+function drawBall(b) {
+    let elem = document.getElementById("ball");
+    let pos = pointToTLPxl(b.file, b.rank);
+    elem.style.top = pos[1];
+    elem.style.left = pos[0];
+}
+
+function updateBoard() {
+    drawPieces(pieces);
+    drawBall(ball);
+}
+
 //set initial board
 var pieces = [];
+var ball = new Ball(5, 7);
 pieces = pieces.concat(setPieces(Pawn, pawnPositions));
-// pieces.concat(setPieces(Bishop, bishopPositions));
-// pieces.concat(setPieces(Rook, rookPositions));
-// pieces.concat(setPieces(King, kingPositions));
-// pieces.concat(setPieces(Queen, queenPositions));
-drawPieces(pieces);
+pieces = pieces.concat(setPieces(Bishop, bishopPositions));
+pieces = pieces.concat(setPieces(Rook, rookPositions));
+pieces = pieces.concat(setPieces(King, kingPositions));
+pieces = pieces.concat(setPieces(Queen, queenPositions));
+pieces = pieces.concat(setPieces(Knight, knightPositions));
+updateBoard();
+
+function isPiece(file, rank) {
+    let out = false;
+    pieces.forEach(p => {
+        if ((p.file == file) && (p.rank == rank)) { out = p; }
+    })
+    return out;
+}
+
+function isBall(file, rank) { return ((ball.rank == rank) && (ball.file == file)); } 
+
+
+window.addEventListener('click', click);
+
+function click(e) {
+    console.log(e.target);
+    console.log(e.target.id);
+}

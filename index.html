@@ -1,259 +1,282 @@
 <html>
 
 <head>
-  <style>
-    #checker-board {
-      width: 550px;
-      height: 750px;
-      background-color: #ffbc00;
-      border: 10px solid rgba(0, 0, 0, 0.65);
-      border-radius: 10px;
-      position: relative;
-    }
+    <style>
+        #checker-board {
+            width: 550px;
+            height: 750px;
+            background-color: #ffbc00;
+            border: 10px solid rgba(0, 0, 0, 0.65);
+            border-radius: 10px;
+            position: relative;
+        }
 
-    .square {
-      width: 50px;
-      height: 50px;
-      float: left;
-    }
+        .square {
+            width: 50px;
+            height: 50px;
+            float: left;
+        }
 
-    .dark {
-      background-color: green;
-    }
+        .dark {
+            background-color: green;
+        }
 
-    .light {
-      background-color: white;
-    }
+        .light {
+            background-color: white;
+        }
 
-    .gold {
-      background-color: #ffb302;
-    }
+        .gold {
+            background-color: #ffb302;
+        }
 
-    .piece {
-      width: 40px;
-      height: 40px;
-      /* border-radius: 20px; */
-      position: absolute;
-    }
+        .piece {
+            width: 40px;
+            height: 40px;
+            /* border-radius: 20px; */
+            position: absolute;
+        }
 
-    .red {
-      background-color: red;
-    }
+        .red {
+            background-color: red;
+        }
 
-    .black {
-      background-color: black;
-    }
-  </style>
+        .black {
+            background-color: black;
+        }
+    </style>
 </head>
 
-<body>
-  <div id="checker-board">
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+<body style="user-select: none;">
+    <div id="checker-board">
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="gold square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="gold square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
 
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
-    <div class="light square"></div>
-    <div class="dark square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
+        <div class="light square"></div>
+        <div class="dark square"></div>
 
-    <div class="piece" id="white-pawn-1"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-2"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-3"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-4"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-5"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-6"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-7"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-8"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-9"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-10"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="white-pawn-11"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-1"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-2"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-3"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-4"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-5"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-6"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-7"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-8"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-9"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-10"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-pawn-11"><img src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
 
-    <div class="piece" id="black-pawn-1"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-2"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-3"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-4"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-5"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-6"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-7"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-8"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-9"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-10"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-    <div class="piece" id="black-pawn-11"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
-  </div>
-  <script defer src="index.js">
-  </script>
+        <div class="piece" id="black-pawn-1"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-2"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-3"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-4"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-5"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-6"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-7"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-8"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-9"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-10"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-pawn-11"><img src="assets/Chess_pdt45.svg.png" width="50px" height="50px"></div>
+
+        <div class="piece" id="white-bishop-1"><img src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-bishop-2"><img src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-bishop-3"><img src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-bishop-4"><img src="assets/Chess_blt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-king-1"><img src="assets/Chess_klt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-rook-1"><img src="assets/Chess_rlt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-rook-2"><img src="assets/Chess_rlt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-queen-1"><img src="assets/Chess_qlt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-knight-1"><img src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="white-knight-2"><img src="assets/Chess_nlt45.svg.png" width="50px" height="50px"></div>
+
+        <div class="piece" id="black-bishop-1"><img src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-bishop-2"><img src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-bishop-3"><img src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-bishop-4"><img src="assets/Chess_bdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-king-1"><img src="assets/Chess_kdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-rook-1"><img src="assets/Chess_rdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-rook-2"><img src="assets/Chess_rdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-queen-1"><img src="assets/Chess_qdt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-knight-1"><img src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="black-knight-2"><img src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
+        <div class="piece" id="ball"><img src="assets/ball.png" width="50px" height="50px"></div>
+    </div>
+    <script defer src="index.js">
+    </script>
 </body>
 
 </html>
