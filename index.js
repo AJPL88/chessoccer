@@ -3,7 +3,7 @@ const board = document.getElementById('checker-board');
 var whitePieces = [];
 var blackPieces = [];
 const squareWidth = 50;
-const boardDim = (11, 15);
+const boardDim = [11, 15];
 
 function pointToTLPxl(file, rank) {
     return [squareWidth * file, squareWidth * rank];
@@ -30,11 +30,26 @@ class Piece {
         this.rank = rank;
         this.color = color;
     }
+
+    getMoves() {
+        let moves = [];
+        for (let f = 0; f < boardDim[0]; f++) {
+            for (let r = 0; r < boardDim[1]; r++) {
+                console.log(f, r)
+                if (this.canMove(f, r)) {
+                    console.log("valid: ", f, r);
+                    moves.push([f, r]);
+                }
+            }
+        }
+
+        return moves;
+    }
 }
 
 
 class Ball {
-    //File: |
+    // File: |
     // Rank: -
     constructor(file, rank) {
         this.file = file;
@@ -47,11 +62,15 @@ class Pawn extends Piece {
         super("" + color + "-pawn-" + number, file, rank, color);
     }
     canMove(file, rank) {
-        // if ((isPiece(file, rank).color == (this.color == "white" ? "black" : "white") )
-        //     && (file == this.file + 1 || file == this.file - 1)
-        //     && (rank == this.file + 1 || rank == this.file -1) { return true; }
+        if ((isPiece(file, rank).color == (this.color == "white" ? "black" : "white"))
+            && (file == this.file + 1 || file == this.file - 1)
+            && (rank == this.file + 1 || rank == this.file - 1)) { return true; }
 
-        // if (!i)
+        if (!isPiece(file, rank)
+            && (file == this.file)
+            && (rank == this.rank + 1 || rank == this.rank - 1)) { return true; }
+
+        return false;
     }
 }
 
@@ -60,9 +79,18 @@ class Knight extends Piece {
         super("" + color + "-knight-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        if (Math.abs(file - this.file) == 1 && Math.abs(rank-this.rank) == 2) { return true; }
-        if (Math.abs(file - this.file) == 2 && Math.abs(rank-this.rank) == 1) { }
-        //TODO!
+        let capturable = isPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+
+        if (capturableColor == this.color) { return false; }
+
+        if (Math.abs(file - this.file) == 1
+            && Math.abs(rank - this.rank) == 2) { return true; }
+
+        if (Math.abs(file - this.file) == 2
+            && Math.abs(rank - this.rank) == 1) { return true; }
+
+        return false;
     }
 }
 
@@ -71,10 +99,22 @@ class Bishop extends Piece {
         super("" + color + "-bishop-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        //TODO!
-        console.log(this.file);
-        console.log(this.rank);
-        console.log("" + file + ", " + rank)
+        if (Math.abs(file - this.file) != Math.abs(rank - this.rank)) { return false; }
+
+        let capturable = isPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+        if (capturableColor == this.color) { return false; }
+
+        let dir = [Math.sign(file - this.file), Math.sign(rank - this.rank)];
+
+        for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
+            ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
+
+            if (isPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+                return false
+            }
+        }
+        return true;
     }
 }
 
@@ -83,10 +123,32 @@ class Rook extends Piece {
         super("" + color + "-rook-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        //TODO!
-        console.log(this.file);
-        console.log(this.rank);
-        console.log("" + file + ", " + rank)
+        if (!((file - this.file == 0) ^ (rank - this.rank == 0))) { return false; }
+
+        let capturable = isPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+        if (capturableColor == this.color) { return false; }
+
+        let f = Math.sign(file - this.file);
+        let r = Math.sign(rank - this.rank);
+
+        if (r != 0) {
+            for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
+                if (isPiece(this.file, this.rank + r * i)) {
+                    return false;
+                }
+            }
+        }
+
+        if (f != 0) {
+            for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
+                if (isPiece(this.file + f * i, this.rank)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
 
@@ -95,10 +157,17 @@ class King extends Piece {
         super("" + color + "-king-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        //TODO!
-        console.log(this.file);
-        console.log(this.rank);
-        console.log("" + file + ", " + rank)
+        let capturable = isPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+
+        if (capturableColor == this.color) { return false; }
+
+        if (rank == this.rank && file == this.file) { return false; }
+
+        if (Math.abs(file - this.file) <= 1
+            && Math.abs(rank - this.rank) <= 1) { return true; }
+
+        return false
     }
 }
 
@@ -107,23 +176,60 @@ class Queen extends Piece {
         super("" + color + "-queen-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        //TODO!
-        console.log(this.file);
-        console.log(this.rank);
-        console.log("" + file + ", " + rank)
+
+        let bf = 0;
+
+        if (Math.abs(file - this.file) != Math.abs(rank - this.rank)) { bf++; }
+
+        let capturable = isPiece(file, rank);
+        let capturableColor = capturable ? capturable.color : false;
+        if (capturableColor == this.color) { return false; }
+
+        let dir = [Math.sign(file - this.file), Math.sign(rank - this.rank)];
+
+        for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
+            ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
+
+            if (isPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+                bf++;
+            }
+        }
+
+        let rf = 0;
+
+        if (!((file - this.file == 0) ^ (rank - this.rank == 0))) { rf++; }
+
+        let f = Math.sign(file - this.file);
+        let r = Math.sign(rank - this.rank);
+
+        if (r != 0) {
+            for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
+                if (isPiece(this.file, this.rank + r * i)) {
+                    rf++;
+                }
+            }
+        }
+
+        if (f != 0) {
+            for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
+                if (isPiece(this.file + f * i, this.rank)) {
+                    rf++;
+                }
+            }
+        }
+        return !(rf && bf);
     }
 }
 
-//white
 const pawnPositions = [[0, 0],
 [1, 1], [2, 1], [3, 1],
 [4, 2], [5, 2], [6, 2],
 [7, 1], [8, 1], [9, 1],
 [10, 0]];
 const bishopPositions = [[3, 0], [4, 0], [6, 0], [7, 0]];
-const rookPositions = [[1, 0], [9, 0]];
-const kingPositions = [[5, 0]];
-const queenPositions = [[5, 1]];
+const rookPositions = [[1, 2], [9, 0]];
+const kingPositions = [[7, 2]];
+const queenPositions = [[5, 4]];
 const knightPositions = [[4, 1], [6, 1]];
 
 function setPieces(type, positions) {
@@ -176,12 +282,41 @@ function isPiece(file, rank) {
     return out;
 }
 
-function isBall(file, rank) { return ((ball.rank == rank) && (ball.file == file)); } 
+function isBall(file, rank) { return ((ball.rank == rank) && (ball.file == file)); }
 
+// var mouseDown = false;
+// document.getElementById("body").addEventListener('mousedown', (e) => { click(e); mouseDown = true; }, false);
+// document.getElementById("body").addEventListener('mouseup', (e) => { mouseDown = false; }, false);
+// function click(e) {
+//     while (mouseDown) {
+//         console.log(e.target.id);
+//     }
+// }
 
-window.addEventListener('click', click);
+var mouseDown = 0;
+var curDragElem;
+document.body.onmousedown = function(event) {
+    if (event.button == 0) {
+        mouseDown = 1;
+        console.log(mouseDown);
+        curDragElem = event.target;
+    }
+}
+document.body.onmouseup = function(event) {
+    if (event.button == 0) {
+        --mouseDown;
+        console.log(mouseDown);
+        console.log(event.target.id);
 
-function click(e) {
-    console.log(e.target);
-    console.log(e.target.id);
+    }
+}
+document.body.onmousemove = function(event) {
+    if (mouseDown == 1) {
+        var divi = document.getElementById(curDragElem.id);
+        // console.log(divi);
+        // console.log("" + divi.style.left + ", " + divi.style.top);
+        // follow(event.target, event.pageX, event.pageY);
+        divi.style.top = event.pageY - 40;
+        divi.style.left = event.pageX - 40;
+    }
 }
