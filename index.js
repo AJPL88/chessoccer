@@ -14,8 +14,10 @@ function pointTToTLPxl(pos) {
 }
 
 function TLPxlToPoint(x, y) {
-    return [Math.floor(x / squareWidth), Math.floor(y / squareWidth)];
+    return [Math.floor(x / squareWidth), 14 - Math.floor(y / squareWidth)];
 }
+
+
 
 // _ _ _ _ p p p _ _ _ _
 // _ p p p N Q N p p p _
@@ -35,9 +37,8 @@ class Piece {
         let moves = [];
         for (let f = 0; f < boardDim[0]; f++) {
             for (let r = 0; r < boardDim[1]; r++) {
-                console.log(f, r)
+                // console.log(f, r)
                 if (this.canMove(f, r)) {
-                    console.log("valid: ", f, r);
                     moves.push([f, r]);
                 }
             }
@@ -62,11 +63,11 @@ class Pawn extends Piece {
         super("" + color + "-pawn-" + number, file, rank, color);
     }
     canMove(file, rank) {
-        if ((isPiece(file, rank).color == (this.color == "white" ? "black" : "white"))
+        if ((getPiece(file, rank).color == (this.color == "white" ? "black" : "white"))
             && (file == this.file + 1 || file == this.file - 1)
             && (rank == this.file + 1 || rank == this.file - 1)) { return true; }
 
-        if (!isPiece(file, rank)
+        if (!getPiece(file, rank)
             && (file == this.file)
             && (rank == this.rank + 1 || rank == this.rank - 1)) { return true; }
 
@@ -79,7 +80,7 @@ class Knight extends Piece {
         super("" + color + "-knight-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        let capturable = isPiece(file, rank);
+        let capturable = getPiece(file, rank);
         let capturableColor = capturable ? capturable.color : false;
 
         if (capturableColor == this.color) { return false; }
@@ -101,7 +102,7 @@ class Bishop extends Piece {
     canMove(file, rank) {
         if (Math.abs(file - this.file) != Math.abs(rank - this.rank)) { return false; }
 
-        let capturable = isPiece(file, rank);
+        let capturable = getPiece(file, rank);
         let capturableColor = capturable ? capturable.color : false;
         if (capturableColor == this.color) { return false; }
 
@@ -110,7 +111,7 @@ class Bishop extends Piece {
         for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
             ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
 
-            if (isPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
                 return false
             }
         }
@@ -125,7 +126,7 @@ class Rook extends Piece {
     canMove(file, rank) {
         if (!((file - this.file == 0) ^ (rank - this.rank == 0))) { return false; }
 
-        let capturable = isPiece(file, rank);
+        let capturable = getPiece(file, rank);
         let capturableColor = capturable ? capturable.color : false;
         if (capturableColor == this.color) { return false; }
 
@@ -134,7 +135,7 @@ class Rook extends Piece {
 
         if (r != 0) {
             for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
-                if (isPiece(this.file, this.rank + r * i)) {
+                if (getPiece(this.file, this.rank + r * i)) {
                     return false;
                 }
             }
@@ -142,7 +143,7 @@ class Rook extends Piece {
 
         if (f != 0) {
             for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
-                if (isPiece(this.file + f * i, this.rank)) {
+                if (getPiece(this.file + f * i, this.rank)) {
                     return false;
                 }
             }
@@ -157,7 +158,7 @@ class King extends Piece {
         super("" + color + "-king-" + number, file, rank, color)
     }
     canMove(file, rank) {
-        let capturable = isPiece(file, rank);
+        let capturable = getPiece(file, rank);
         let capturableColor = capturable ? capturable.color : false;
 
         if (capturableColor == this.color) { return false; }
@@ -181,7 +182,7 @@ class Queen extends Piece {
 
         if (Math.abs(file - this.file) != Math.abs(rank - this.rank)) { bf++; }
 
-        let capturable = isPiece(file, rank);
+        let capturable = getPiece(file, rank);
         let capturableColor = capturable ? capturable.color : false;
         if (capturableColor == this.color) { return false; }
 
@@ -190,7 +191,7 @@ class Queen extends Piece {
         for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
             ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
 
-            if (isPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
                 bf++;
             }
         }
@@ -204,7 +205,7 @@ class Queen extends Piece {
 
         if (r != 0) {
             for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
-                if (isPiece(this.file, this.rank + r * i)) {
+                if (getPiece(this.file, this.rank + r * i)) {
                     rf++;
                 }
             }
@@ -212,7 +213,7 @@ class Queen extends Piece {
 
         if (f != 0) {
             for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
-                if (isPiece(this.file + f * i, this.rank)) {
+                if (getPiece(this.file + f * i, this.rank)) {
                     rf++;
                 }
             }
@@ -235,17 +236,17 @@ const knightPositions = [[4, 1], [6, 1]];
 function setPieces(type, positions) {
     let out = [];
     for (let i = 1; i <= positions.length; i++) {
-        out.push(new type(positions[i - 1][0], 14 - positions[i - 1][1], 'white', i));
-        out.push(new type(positions[i - 1][0], positions[i - 1][1], 'black', i));
+        out.push(new type(positions[i - 1][0], positions[i - 1][1], 'white', i));
+        out.push(new type(positions[i - 1][0], 14 - positions[i - 1][1], 'black', i));
     }
     return out;
 }
 
 function drawPieces(pieces) {
     for (let i = 0; i < pieces.length; i++) {
-        console.log(pieces[i]);
+        // console.log(pieces[i]);
         let piece = document.getElementById(pieces[i].name);
-        let pos = pointTToTLPxl([pieces[i].file, pieces[i].rank]);
+        let pos = pointTToTLPxl([pieces[i].file, 14 - pieces[i].rank]);
         piece.style.top = pos[1];
         piece.style.left = pos[0];
     }
@@ -274,7 +275,7 @@ pieces = pieces.concat(setPieces(Queen, queenPositions));
 pieces = pieces.concat(setPieces(Knight, knightPositions));
 updateBoard();
 
-function isPiece(file, rank) {
+function getPiece(file, rank) {
     let out = false;
     pieces.forEach(p => {
         if ((p.file == file) && (p.rank == rank)) { out = p; }
@@ -295,27 +296,59 @@ function isBall(file, rank) { return ((ball.rank == rank) && (ball.file == file)
 
 var mouseDown = 0;
 var curDragElem;
+var curDragPiece;
+var ofile;
+var orank;
 document.body.onmousedown = function(event) {
     if (event.button == 0) {
         mouseDown = 1;
-        console.log(mouseDown);
+        // console.log(mouseDown);
         curDragElem = event.target;
+        console.log(curDragElem.id);
+        if (curDragElem.id == "checker-board") {
+            console.log("CHESSBOARD");
+            console.log(" ");
+            return;
+        }
+        if (!curDragElem.id.includes("black") && !curDragElem.id.includes("white")) {
+            console.log("not a piece");
+            console.log(" ");
+            return;
+        }
+        let divi = document.getElementById(curDragElem.id);
+        let ofr = TLPxlToPoint(Number(divi.style.left.replace("px",""))+25, Number(divi.style.top.replace("px",""))+25);
+        ofile = ofr[0];
+        orank = ofr[1];
+        console.log("" + ofile + ", " + orank);
+        console.log(getPiece(ofile,orank))
+        curDragPiece = getPiece(ofile, orank)
+        console.log(" ");
     }
+
 }
+
 document.body.onmouseup = function(event) {
     if (event.button == 0) {
         --mouseDown;
-        console.log(mouseDown);
-        console.log(event.target.id);
-
+        // console.log(mouseDown);
+        // console.log(event.target.id);
+        
+        let divi = document.getElementById(curDragElem.id);
+        let ffr = TLPxlToPoint(Number(divi.style.left.replace("px",""))+25, Number(divi.style.top.replace("px",""))+25);
+        if (!curDragPiece.getMoves().includes(ffr)) {
+            let pxl = pointToTLPxl(ofile, orank);
+            divi.style.left = pxl[0]
+            divi.style.top = pxl[1]
+        } 
+        getPiece()
     }
 }
+
 document.body.onmousemove = function(event) {
     if (mouseDown == 1) {
-        var divi = document.getElementById(curDragElem.id);
-        // console.log(divi);
-        // console.log("" + divi.style.left + ", " + divi.style.top);
-        // follow(event.target, event.pageX, event.pageY);
+        let divi = document.getElementById(curDragElem.id);
+        
+        
         divi.style.top = event.pageY - 40;
         divi.style.left = event.pageX - 40;
     }
