@@ -32,6 +32,10 @@ class Piece {
     }
 }
 
+// class Ball {
+//     //TODO!
+// }
+
 class Pawn extends Piece {
     constructor(file, rank, color, number) {
         super("" + color + "-pawn-" + number, file, rank, color)
@@ -114,8 +118,8 @@ function setPieces(type, positions) {
 
 function drawPieces(pieces) {
     for (var i = 0; i <= pieces.length; i++) {
-        var piece = document.getElementById(pieces[i].name);
         console.log(pieces[i].name);
+        var piece = document.getElementById(pieces[i].name);
         var pos = pointTToTLPxl([pieces[i].file, pieces[i].rank]);
         piece.style.top = pos[1];
         piece.style.left = pos[0];
@@ -124,28 +128,9 @@ function drawPieces(pieces) {
 
 //set initial board
 var pieces = [];
-pieces.push(setPieces(Pawn, pawnPositions));
-pieces.push(setPieces(Bishop, bishopPositions));
-pieces.push(setPieces(Rook, rookPositions));
-pieces.push(setPieces(King, kingPositions));
-pieces.push(setPieces(Queen, queenPositions));
+pieces = pieces.concat(setPieces(Pawn, pawnPositions));
+// pieces.concat(setPieces(Bishop, bishopPositions));
+// pieces.concat(setPieces(Rook, rookPositions));
+// pieces.concat(setPieces(King, kingPositions));
+// pieces.concat(setPieces(Queen, queenPositions));
 drawPieces(pieces);
-
-/*
-for (var i = 1; i <= 11; i++) {
-    var redChecker = document.getElementById('white-pawn-' + i);
-    var blackChecker = document.getElementById('black-pawn-' + i);
-
-    var col = (i - 1) % 4;
-    var row = Math.floor((i - 1) / 4);
-
-    redChecker.style.top = 50 + 50 * row - 45;
-    redChecker.style.left = 100 + 100 * col - 95 + (row === 1 ? 50 : 0);
-
-    blackChecker.style.top = 310 - (50 * row - 45);
-    blackChecker.style.left = 100 + 100 * col - 95 + (row !== 1 ? 50 : 0);
-
-    redCheckers.push(redChecker);
-    blackCheckers.push(blackChecker);
-}
-*/
