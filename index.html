@@ -9,8 +9,10 @@
 
 <body style="user-select: none; background-color: #111111;" id="body">
     <center>
-        <h1 style="color: white;">
-            <marquee> CHESSOCCER, DEVELOPED BY ESHAN, ALAN, TIMON - Gunnhacks 9.0 - TEAM EAT FTW !! </marquee>
+        <h1 style="color: white; font-family: 'Copperplate';">
+            <marquee>
+                CHESSOCCER, DEVELOPED BY ESHAN, ALAN, TIMON - Gunnhacks 9.0 - TEAM EAT FTW !!
+            </marquee>
         </h1>
     </center>
 
@@ -182,6 +184,37 @@
             <div id="0900" class="light square"></div>
             <div id="1000" class="dark square"></div>
 
+            <!--
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+import math
+x = 0
+for j in reversed(range(15)):
+    for i in range(11):
+        if x % 2 == 0:
+            if i > 9:
+                if j > 9:
+                    print(f'<div id="{i}{j}" class="dark square"></div>')
+                else:
+                    print(f'<div id="{i}0{j}" class="dark square"></div>')
+            else:
+                if j > 9:
+                    print(f'<div id="0{i}{j}" class="dark square"></div>')
+                else:
+                    print(f'<div id="0{i}0{j}" class="dark square"></div>')
+        else:
+            if i > 9:
+                if j > 9:
+                    print(f'<div id="{i}{j}" class="light square"></div>')
+                else:
+                    print(f'<div id="{i}0{j}" class="light square"></div>')
+            else:
+                if j > 9:
+                    print(f'<div id="0{i}{j}" class="light square"></div>')
+                else:
+                    print(f'<div id="0{i}0{j}" class="light square"></div>')
+        x += 1;
+            -->
+
             <div class="piece" id="white-pawn-1"><img draggable="false" id="white-pawn-1"
                     src="assets/Chess_plt45.svg.png" width="50px" height="50px"></div>
             <div class="piece" id="white-pawn-2"><img draggable="false" id="white-pawn-2"
@@ -269,8 +302,8 @@
                     src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
             <div class="piece" id="black-knight-2"><img draggable="false" id="black-knight-2"
                     src="assets/Chess_ndt45.svg.png" width="50px" height="50px"></div>
-            <div class="piece" id="ball"><img draggable="false" id="ball" src="assets/ball.png" width="50px"
-                    height="50px">
+            <div class="piece" id="ball" style="z-index: 5003;"><img draggable="false" id="ball" src="assets/ball.png"
+                    width="50px" height="50px">
             </div>
         </div>
     </center>

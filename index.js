@@ -118,7 +118,9 @@ class Bishop extends Piece {
         for (let i = 1; (((this.file + dir[0] * i) * dir[0]) < (file * dir[0])) &&
             (((this.rank + dir[1] * i) * dir[1]) < (rank * dir[1])); i++) {
 
-            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i) ||
+                ((this.file + dir[0] * i == ball.file) &&
+                 (this.rank + dir[1] * i == ball.rank))) {
                 return false;
             }
         }
@@ -142,7 +144,9 @@ class Rook extends Piece {
 
         if (r != 0) {
             for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
-                if (getPiece(this.file, this.rank + r * i)) {
+                if (getPiece(this.file, this.rank + r * i) ||
+                    ((this.file == ball.file) &&
+                     (this.rank + r * i == ball.rank))) {
                     return false;
                 }
             }
@@ -150,7 +154,9 @@ class Rook extends Piece {
 
         if (f != 0) {
             for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
-                if (getPiece(this.file + f * i, this.rank)) {
+                if (getPiece(this.file + f * i, this.rank) ||
+                    ((this.file + f * i == ball.file) &&
+                     (this.rank == ball.rank))) {
                     return false;
                 }
             }
@@ -198,7 +204,9 @@ class Queen extends Piece {
         for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
             ((this.rank + dir[1] * i) * dir[1] < rank * dir[1]); i++) {
 
-            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
+            if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i) ||
+                ((this.file + dir[0] * i == ball.file) &&
+                 (this.rank + dir[1] * i == ball.rank))) {
                 bf++;
             }
         }
@@ -212,7 +220,9 @@ class Queen extends Piece {
 
         if (r != 0) {
             for (let i = 1; r * (this.rank + i * r) < (rank * r); i++) {
-                if (getPiece(this.file, this.rank + r * i)) {
+                if (getPiece(this.file, this.rank + r * i) ||
+                    ((this.file == ball.file) &&
+                     (this.rank + r * i == ball.rank))) {
                     rf++;
                 }
             }
@@ -220,7 +230,9 @@ class Queen extends Piece {
 
         if (f != 0) {
             for (let i = 1; f * (this.file + i * f) < (file * f); i++) {
-                if (getPiece(this.file + f * i, this.rank)) {
+                if (getPiece(this.file + f * i, this.rank) ||
+                    ((this.file + f * i == ball.file) &&
+                     (this.rank == ball.rank))) {
                     rf++;
                 }
             }
@@ -393,41 +405,175 @@ document.body.onmouseup = function(event) {
         divi.style.top = pxl[1]
 
         if (isBall(ffile, frank)) {
+            let aniSaves = [];
             let ballMov = [ffile - ofile, frank - orank];
-            let k = false;
-            if ((Math.abs(ballMov[0]) == 2 && Math.abs(ballMov[1]) == 1) || (Math.abs(ballMov[0]) == 1 && Math.abs(ballMov[1]) == 2)) { k = true; }
             let balldiv = document.getElementById("ball");
 
-            //collisions
-            if (!k) {
-                
-            }
+            let k = false;
 
-            let oldballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
-            ball.file += ballMov[0];
-            ball.rank += ballMov[1];
-            let ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+            if ((Math.abs(ballMov[0]) == 2 && Math.abs(ballMov[1]) == 1) || (Math.abs(ballMov[0]) == 1 && Math.abs(ballMov[1]) == 2)) { k = true; }
+
+            aniSaves.push(pointToTLPxl(ball.file, 14 - ball.rank));
+
+            while ((Math.abs(ballMov[0]) > 0) || (Math.abs(ballMov[1]) > 0)) {
+                ball.file += Math.sign(ballMov[0]);
+                ball.rank += Math.sign(ballMov[1]);
+                
+                ballMov[0] -= Math.sign(ballMov[0]);
+                ballMov[1] -= Math.sign(ballMov[1]);
+
+                //wall collisions
+                if (ball.file > boardDim[0] - 1) {
+                    ballMov[0] *= -1;
+                    ball.file = boardDim[0] - 2;
+                    aniSaves.push(pointToTLPxl(boardDim[0] - 1, 14 - (ball.rank - Math.sign(ballMov[1]))));
+                }
+                else if (ball.file < 0) {
+                    ballMov[0] *= -1;
+                    ball.file = 1;
+                    aniSaves.push(pointToTLPxl(0, 14 - (ball.rank - Math.sign(ballMov[1]))));
+                }
+    
+                if (ball.rank > boardDim[1] - 1) {
+                    ballMov[1] *= -1;
+                    ball.rank = boardDim[1] - 2;
+                    aniSaves.push(pointToTLPxl((ball.file + Math.sign(ballMov[0])), boardDim[1] - 1));
+                }
+                else if (ball.rank < 0) {
+                    ballMov[1] *= -1;
+                    ball.rank = 1;
+                    aniSaves.push(pointToTLPxl((ball.file + Math.sign(ballMov[0])), 0));
+                }
+
+                //piece collisions
+                let capture = getPiece(ball.file, ball.rank);
+                if (capture && !k) {
+                    ballMov[0] = 0;
+                    ballMov[1] = 0;
+                }
+            }
+            aniSaves.push(pointToTLPxl(ball.file, 14 - ball.rank));
+            // function cap() {
+            //     let k = false;
+            //     if ((Math.abs(ballMov[0]) == 2 && Math.abs(ballMov[1]) == 1) || (Math.abs(ballMov[0]) == 1 && Math.abs(ballMov[1]) == 2)) { k = true; }
+    
+            //     //collisions
+            //     let ffinal = ball.file + ballMov[0];
+            //     let rfinal = ball.rank + ballMov[1];
+            //     if (!k) {
+            //         let dir = [Math.sign(ballMov[0]), Math.sign(ballMov[1])];
+            //         //diagonal
+            //         if (Math.abs(ballMov[0]) == Math.abs(ballMov[1])) {
+            //             for (let i = 1; (((ball.file + dir[0] * i) * dir[0]) < (ffinal * dir[0])) &&
+            //                  (((ball.rank + dir[1] * i) * dir[1]) < (rfinal * dir[1])); i++) {
+    
+            //                 if (getPiece(ball.file + dir[0] * i, ball.rank + dir[1] * i) ||
+            //                     ((ball.file + dir[0] * i == ball.file) &&
+            //                      (ball.rank + dir[1] * i == ball.rank))) {
+            //                     ballMov[0] = dir[0] * i;
+            //                     ballMov[1] = dir[1] * i;
+            //                     break;
+            //                 }
+            //             }
+            //         }
+    
+            //         //rook-like move
+            //         else if (dir[1] != 0) {
+            //             for (let i = 1; dir[1] * (ball.rank + i * dir[1]) < (rfinal * dir[1]); i++) {
+            //                 if (getPiece(ball.file, ball.rank + dir[1] * i) ||
+            //                     ((ball.file == ball.file) &&
+            //                      (ball.rank + dir[1] * i == ball.rank))) {
+            //                     ballMov[1] = dir[1] * i;
+            //                     break;
+            //                 }
+            //             }
+            //         }
+            
+            //         else if (dir[0] != 0) {
+            //             for (let i = 1; dir[0] * (ball.file + i * dir[0]) < (ffinal * dir[0]); i++) {
+            //                 if (getPiece(ball.file + dir[0] * i, ball.rank) ||
+            //                     ((ball.file + dir[0] * i == ball.file) &&
+            //                      (ball.rank == ball.rank))) {
+            //                     ballMov[0] = dir[0]*i;
+            //                     break;
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+            // cap();
+    
+            // ball.file += ballMov[0];
+            // ball.rank += ballMov[1];
+    
+            // let ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+    
+            // function doesBounce() {
+            //     let bounce = false;
+                
+            //     if (ball.file > boardDim[0] - 1) {
+            //         ballMov[0] = (boardDim[0] - 1) - ball.file;
+            //         ball.file = boardDim[0] - 1;
+            //         bounce = true;
+            //     }
+            //     else if (ball.file < 0) {
+            //         ballMov[0] = 0 - ball.file;
+            //         ball.file = 0;
+            //         bounce = true;
+            //     }
+            //     else { ballMov[0] = 0; }
+    
+            //     if (ball.rank > boardDim[1] - 1) {
+            //         ballMov[1] = (boardDim[1] - 1) - ball.rank;
+            //         ball.rank = boardDim[1] - 1;
+            //         bounce = true;
+            //     }
+            //     else if (ball.rank < 0) {
+            //         ballMov[1] = 0 - ball.rank;
+            //         ball.rank = 0;
+            //         bounce = true;
+            //     }
+            //     else {ballMov[1] = 0;}
+    
+    
+            //     if (bounce) {
+            //         let ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+            //         CoolAnimation(balldiv, oldballpxl[0], oldballpxl[1], ballpxl[0], ballpxl[1], 1000);
+            //         // ball.file += Math.sign(ballMov[0]);
+            //         // ball.rank += Math.sign(ballMov[1]);
+            //         cap();
+            //         ball.file += ballMov[0];
+            //         ball.rank += ballMov[1];
+
+            //         // ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+            //         // CoolAnimation(balldiv, oldballpxl[0], oldballpxl[1], ballpxl[0], ballpxl[1], 1000);
+            //         // doesBounce();
+            //     }
+            // }
+    
+            // doesBounce();
+            // let ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
 
             //ANIMATE
             // console.log(balldiv.children.item(0));
-            CoolAnimation(balldiv, oldballpxl[0], oldballpxl[1], ballpxl[0], ballpxl[1], 1000);
+            async function ani() {
+                for (let i = 0; i < aniSaves.length - 1; i++){
+                    await CoolAnimation(balldiv, aniSaves[i][0], aniSaves[i][1], aniSaves[i+1][0], aniSaves[i+1][1], 1000);
+                }
+            }
+            
+            ani();
+            // CoolAnimation(balldiv, oldballpxl[0], oldballpxl[1], ballpxl[0], ballpxl[1], 1000);
             // balldiv.style.left = ballpxl[0];
             // balldiv.style.top = ballpxl[1];
             balldiv.style.zindex = 1;
-            let capture = getPiece(ball.file, ball.rank);
-            if (capture) {
-                for (let i = pieces.length - 1; i >= 0; i--) {
-                    if (pieces[i].name == capture.name) {
-                        // delete pieces[i];
-                        pieces.splice(i, 1);
-                        document.getElementById(capture.name).remove();
-                    }
-                }
             }
+            
         }
+}
 
-
-    }
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function CoolAnimation(elem, startPosLeft, startPosTop, endPosLeft, endPosTop, ms) {
@@ -438,12 +584,25 @@ function CoolAnimation(elem, startPosLeft, startPosTop, endPosLeft, endPosTop, m
         elem.style.top = (1 - t) * (startPosTop) + t * endPosTop;
         t += 1 / 130
     }, ms / 120)
-    setTimeout(() => {
-        clearInterval(iv);
-        elem.children.item(0).setAttribute("src", "assets/ball.png");
-        elem.style.left = endPosLeft;
-        elem.style.top = endPosTop;
-    }, ms)
+    return new Promise ((resolve) => {
+        setTimeout(() => {
+            clearInterval(iv);
+            elem.children.item(0).setAttribute("src", "assets/ball.png");
+            elem.style.left = endPosLeft;
+            elem.style.top = endPosTop;
+            let capture = getPiece(ball.file, ball.rank);
+                if (capture) {
+                    for (let i = pieces.length - 1; i >= 0; i--) {
+                        if (pieces[i].name == capture.name) {
+                            // delete pieces[i];
+                            pieces.splice(i, 1);
+                            document.getElementById(capture.name).remove();
+                        }
+                    }
+                }
+        resolve(1);
+        }, ms)
+    });
 }
 
 document.body.onmousemove = function(event) {
@@ -466,6 +625,7 @@ function showHints(piece) {
         let pxl = pointToTLPxl(m[0], 14 - m[1]);
         hint.style.left = pxl[0] + 50 / 2 - 15 / 2;
         hint.style.top = pxl[1] + 50 / 2 - 15 / 2;
+        hint.style.zIndex = 99999;
 
         document.getElementById("checker-board").appendChild(hint);
     })
