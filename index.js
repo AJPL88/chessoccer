@@ -115,11 +115,11 @@ class Bishop extends Piece {
 
         let dir = [Math.sign(file - this.file), Math.sign(rank - this.rank)];
 
-        for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
-            ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
+        for (let i = 1; (((this.file + dir[0] * i) * dir[0]) < (file * dir[0])) &&
+            (((this.rank + dir[1] * i) * dir[1]) < (rank * dir[1])); i++) {
 
             if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
-                return false
+                return false;
             }
         }
         return true;
@@ -196,7 +196,7 @@ class Queen extends Piece {
         let dir = [Math.sign(file - this.file), Math.sign(rank - this.rank)];
 
         for (let i = 1; ((this.file + dir[0] * i) * dir[0] < file * dir[0]) &&
-            ((this.rank + dir[1] * i) * dir[1] < rank * dir[0]); i++) {
+            ((this.rank + dir[1] * i) * dir[1] < rank * dir[1]); i++) {
 
             if (getPiece(this.file + dir[0] * i, this.rank + dir[1] * i)) {
                 bf++;
@@ -333,10 +333,13 @@ document.body.onmousedown = function(event) {
         let divi = document.getElementById(curDragElem.id);
         divi.style.zIndex = 69420;
 
-        let ofr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25, Number(divi.style.top.replace("px", "")) + 25);
+        let ofr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25,
+            Number(divi.style.top.replace("px", "")) + 25);
         ofile = ofr[0];
         orank = ofr[1];
-        curDragPiece = getPiece(ofile, orank)
+        curDragPiece = getPiece(ofile, orank);
+
+        showHints(curDragPiece);
 
         console.log("" + ofile + ", " + orank);
         console.log(getPiece(ofile, orank))
@@ -352,20 +355,25 @@ document.body.onmouseup = function(event) {
         // console.log(event.target.id);
         if (!curDragElem) { return; }
 
+        hideHints();
+
         let divi = document.getElementById(curDragElem.id);
+        divi.style.zIndex = 1;
 
-        let ffr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25, Number(divi.style.top.replace("px", "")) + 25);
+        let ffr = TLPxlToPoint(Number(divi.style.left.replace("px", "")) + 25,
+            Number(divi.style.top.replace("px", "")) + 25);
+        let ffile = ffr[0];
+        let frank = ffr[1];
 
-        if (!curDragPiece.getMoves().find((c) => c[0] == ffr[0] && c[1] == ffr[1])) {
+        if (!curDragPiece.getMoves().find((c) => c[0] == ffile && c[1] == frank)) {
             let pxl = pointToTLPxl(ofile, 14 - orank);
             divi.style.left = pxl[0]
             divi.style.top = pxl[1]
-            divi.style.zIndex = 1;
 
             return;
         }
 
-        let capturable = getPiece(ffr[0], ffr[1])
+        let capturable = getPiece(ffile, frank)
         if (capturable) {
             // pieces.forEach((x) => {if (x.name == capturable.name) {dele}})
             for (let i = pieces.length - 1; i >= 0; i--) {
@@ -378,12 +386,64 @@ document.body.onmouseup = function(event) {
             document.getElementById(capturable.name).remove();
         }
 
-        curDragPiece.file = ffr[0];
-        curDragPiece.rank = ffr[1];
-        let pxl = pointToTLPxl(ffr[0], 14 - ffr[1]);
+        curDragPiece.file = ffile;
+        curDragPiece.rank = frank;
+        let pxl = pointToTLPxl(ffile, 14 - frank);
         divi.style.left = pxl[0]
         divi.style.top = pxl[1]
+
+        if (isBall(ffile, frank)) {
+            let ballMov = [ffile - ofile, frank - orank];
+            let k = false;
+            if ((Math.abs(ballMov[0]) == 2 && Math.abs(ballMov[1]) == 1) || (Math.abs(ballMov[0]) == 1 && Math.abs(ballMov[1]) == 2)) { k = true; }
+            let balldiv = document.getElementById("ball");
+
+            //collisions
+            if (!k) {
+                
+            }
+
+            let oldballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+            ball.file += ballMov[0];
+            ball.rank += ballMov[1];
+            let ballpxl = pointToTLPxl(ball.file, 14 - ball.rank);
+
+            //ANIMATE
+            // console.log(balldiv.children.item(0));
+            CoolAnimation(balldiv, oldballpxl[0], oldballpxl[1], ballpxl[0], ballpxl[1], 1000);
+            // balldiv.style.left = ballpxl[0];
+            // balldiv.style.top = ballpxl[1];
+            balldiv.style.zindex = 1;
+            let capture = getPiece(ball.file, ball.rank);
+            if (capture) {
+                for (let i = pieces.length - 1; i >= 0; i--) {
+                    if (pieces[i].name == capture.name) {
+                        // delete pieces[i];
+                        pieces.splice(i, 1);
+                        document.getElementById(capture.name).remove();
+                    }
+                }
+            }
+        }
+
+
     }
+}
+
+function CoolAnimation(elem, startPosLeft, startPosTop, endPosLeft, endPosTop, ms) {
+    elem.children.item(0).setAttribute("src", "assets/ballin.gif");
+    let t = 0;
+    let iv = setInterval(() => {
+        elem.style.left = (1 - t) * (startPosLeft) + t * endPosLeft;
+        elem.style.top = (1 - t) * (startPosTop) + t * endPosTop;
+        t += 1 / 130
+    }, ms / 120)
+    setTimeout(() => {
+        clearInterval(iv);
+        elem.children.item(0).setAttribute("src", "assets/ball.png");
+        elem.style.left = endPosLeft;
+        elem.style.top = endPosTop;
+    }, ms)
 }
 
 document.body.onmousemove = function(event) {
@@ -395,4 +455,21 @@ document.body.onmousemove = function(event) {
             divi.style.left = event.pageX - 35 - board.left;
         }
     }
+}
+
+function showHints(piece) {
+    let moves = piece.getMoves();
+    moves.forEach((m) => {
+        let hint = document.createElement('div');
+        hint.setAttribute("id", "hint");
+
+        let pxl = pointToTLPxl(m[0], 14 - m[1]);
+        hint.style.left = pxl[0] + 50 / 2 - 15 / 2;
+        hint.style.top = pxl[1] + 50 / 2 - 15 / 2;
+
+        document.getElementById("checker-board").appendChild(hint);
+    })
+}
+function hideHints() {
+    document.querySelectorAll("[id = 'hint']").forEach((h) => h.remove());
 }

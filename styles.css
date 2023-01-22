@@ -32,10 +32,10 @@
     position: absolute;
 }
 
-.red {
-    background-color: red;
-}
-
-.black {
-    background-color: black;
+#hint {
+    width: 15px;
+    height: 15px;
+    background-color: #909090;
+    border-radius: 8px;
+    position: absolute;
 }
